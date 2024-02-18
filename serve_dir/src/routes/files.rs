@@ -1,6 +1,5 @@
 use http_types::mime::{Mime, BYTE_STREAM};
-use pavex::http::header::{CONTENT_LENGTH, CONTENT_TYPE, LOCATION};
-use pavex::http::HeaderValue;
+use pavex::http::header::{CONTENT_LENGTH, CONTENT_TYPE};
 use pavex::request::path::PathParams;
 use pavex::response::body::raw::Full;
 use pavex::response::Response;
@@ -14,8 +13,13 @@ pub struct SubPath<'a> {
 
 pub fn serve_files(subpath: &PathParams<SubPath>) -> Response {
     let prefix = "assets";
-    let pathstring = format!("./{}/{}", prefix, subpath.0.path);
-    let mut path = Path::new(&pathstring).to_path_buf();
+
+    let basepath = Path::new(&format!("./{}", prefix)).to_path_buf();
+
+    let mut path = match basepath.join(subpath.0.path).canonicalize() {
+        Ok(p) => p,
+        Err(_) => return Response::not_found(),
+    };
 
     if path.is_dir() {
         path.push("index.html");
@@ -46,5 +50,5 @@ pub fn serve_files(subpath: &PathParams<SubPath>) -> Response {
 }
 
 pub fn index() -> Response {
-    Response::see_other().append_header(LOCATION, HeaderValue::from_str("/index.html").unwrap())
+    serve_files(&PathParams(SubPath { path: "" }))
 }

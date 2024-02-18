@@ -1,5 +1,7 @@
 # serve_dir
 
+A quick demo for serving static files with Pavex.
+
 # Getting started
 
 ## Prerequisites

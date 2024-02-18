@@ -1,0 +1,19 @@
+[package]
+name = "serve_dir_server_sdk"
+version = "0.1.0"
+edition = "2021"
+
+[package.metadata.px.generate]
+generator_type = "cargo_workspace_binary"
+generator_name = "bp"
+
+[lints]
+clippy = { all = "allow" }
+
+[dependencies]
+http = { version = "1.0.0", package = "http" }
+hyper = { version = "1.1.0", package = "hyper" }
+pavex = { version = "0.1.18", package = "pavex" }
+pavex_matchit = { version = "0.7.4", package = "pavex_matchit" }
+serve_dir = { version = "0.1.0", path = "../serve_dir", package = "serve_dir" }
+thiserror = { version = "1.0.57", package = "thiserror" }

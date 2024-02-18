@@ -1,0 +1,7 @@
+[workspace]
+members = ["serve_dir", "serve_dir_server_sdk", "serve_dir_server"]
+# By setting `serve_dir_server` as the default member, `cargo run` will default to running the server binary
+# when executed from the root of the workspace.
+# Otherwise, you would have to use `cargo run --bin api` to run the server binary.
+default-members = ["serve_dir_server"]
+resolver = "2"

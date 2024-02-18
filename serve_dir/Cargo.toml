@@ -1,0 +1,19 @@
+[package]
+name = "serve_dir"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+path = "src/bin/bp.rs"
+name = "bp"
+
+[dependencies]
+cargo_px_env = "0.1"
+pavex = { version = "0.1.18" }
+pavex_cli_client = { version = "0.1.18" }
+tracing = "0.1"
+http-types = "2.12.0"
+
+# Configuration
+serde = { version = "1", features = ["derive"] }
+serde-aux = "4"
